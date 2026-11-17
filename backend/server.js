@@ -12,7 +12,7 @@ const app = express();
 // Allowed frontend URLs
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://music-beats-google-auth-gules.vercel.app/",
+  "https://music-beats-google-auth-gules.vercel.app",
 ];
 
 app.use(
