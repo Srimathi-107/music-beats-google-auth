@@ -9,27 +9,50 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
+// Allowed frontend URLs
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://music-beats-google-auth-2up5.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
+// Authentication Routes
 app.use("/api/auth", authRoutes);
 
+// Test Route
 app.get("/", (req, res) => {
   res.send("Music Beats Backend is Running!");
 });
 
+// Render PORT
 const PORT = process.env.PORT || 5000;
 
+// Start Server
 const startServer = async () => {
-  await connectDB();
+  try {
+    await connectDB();
 
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Server startup error:", error);
+    process.exit(1);
+  }
 };
 
 startServer();
