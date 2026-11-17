@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+* {
+    font-family: "Manrope", sans-serif;
+}
+
+.genre-track {
+    animation: marquee 25s linear infinite;
+}
+
+.genre-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-33.333%);
+    }
+}
+
+
+.testimonial-track {
+    animation: testimonialScroll 35s linear infinite;
+}
+
+.testimonial-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes testimonialScroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
